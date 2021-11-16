@@ -1,7 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-
+public struct LoginLoadData : ILoadSceneData
+{
+    public SceneType PreviousScene { get => SceneType.Login; }
+    public User User { get; private set; }
+    public LoginLoadData(User user)
+    {
+        User = user;
+    }
+}
 public class LoginController : MonoBehaviour
 {
     [SerializeField] private Button googleLoginButton = null;
@@ -13,7 +20,6 @@ public class LoginController : MonoBehaviour
     {
         BackEndSDK.Instance.ActiveOnScene();
         SetButtons();
-
         if (BackEndLogin.TryAutoLogin())
         {
             SetStartButton(true);
@@ -26,8 +32,10 @@ public class LoginController : MonoBehaviour
 
     private void SetButtons()
     {
-        //TODO Scene넘어갈때 필요한 값 전달할 수 있는 SceneManager싱글톤만들기 저장했다가 코루틴으로 한프레임지나고 이벤트발산
-        startButton.SetClickListener(()=> { });
+        startButton.SetClickListener(()=> 
+        {
+            SceneLoader.Instance.Load(SceneType.Main, new LoginLoadData(User.Create()));
+        });
 
         guestLoginButton.SetClickListener(async () =>
         {
