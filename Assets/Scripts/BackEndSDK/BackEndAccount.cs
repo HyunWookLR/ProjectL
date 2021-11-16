@@ -92,12 +92,12 @@ public class BackEndLogout
     public static Task<bool> Logout()
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
-        //TODO BlockCanvas.Activate()
+        BlockCanvas.Instance.Activate();
         Backend.BMember.Logout((resultObject) =>
         {
             taskCompletionSource.SetResult(true);
-            Debug.Log("Log out Done");
-            //TODO BlockCanvas.Deactivate()
+            Debug.Log("Log Out Success");
+            BlockCanvas.Instance.Deactivate();
         });
         return taskCompletionSource.Task;
     }
