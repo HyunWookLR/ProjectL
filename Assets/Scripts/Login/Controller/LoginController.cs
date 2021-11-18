@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-public struct LoginLoadData : ILoadSceneData
+public struct SceneLoadUserData : ILoadSceneData
 {
     public SceneType PreviousScene { get => SceneType.Login; }
     public User User { get; private set; }
-    public LoginLoadData(User user)
+    public SceneLoadUserData(User user)
     {
         User = user;
     }
@@ -16,6 +16,7 @@ public class LoginController : MonoBehaviour
     [SerializeField] private Button startButton = null;
     [SerializeField] private Button logoutButton = null;
     [SerializeField] private GameObject loginButtonsParent = null;
+    [SerializeField] private Button deleteAccountButton = null;
     private void Awake()
     {
         BackEndSDK.Instance.ActiveOnScene();
@@ -34,23 +35,15 @@ public class LoginController : MonoBehaviour
     {
         startButton.SetClickListener(()=> 
         {
-            SceneLoader.Instance.Load(SceneType.Main, new LoginLoadData(User.Create()));
+            SceneLoader.Instance.Load(SceneType.Main, new SceneLoadUserData(User.Create()));
         });
+        deleteAccountButton.SetClickListener(() => DeleteAccount());
+        guestLoginButton.SetClickListener(() => GuestLogIn());
+        logoutButton.SetClickListener(() => LogOut());
 
-        guestLoginButton.SetClickListener(async () =>
-        {
-            BlockCanvas.Instance.Activate();
-            await BackEndLogin.GuestLogin();
-            BlockCanvas.Instance.Deactivate();
-            SetStartButton(true);
-        });
-        logoutButton.SetClickListener(async() =>
-        {
-            BlockCanvas.Instance.Activate();
-            await BackEndLogout.Logout();
-            BlockCanvas.Instance.Deactivate();
-            SetStartButton(false);
-        });
+        //TODO delete
+        googleLoginButton.SetClickListener(() => Debug.Log("기능 미구현"));
+
         //TODO apk만들고 구글스토어에서 등록해야 테스트 가능
         //googleLoginButton.SetClickListener(async ()=>
         //{
@@ -63,6 +56,7 @@ public class LoginController : MonoBehaviour
     {
         startButton.gameObject.SetActive(isActive);
         logoutButton.gameObject.SetActive(isActive);
+        deleteAccountButton.gameObject.SetActive(isActive);
 
         loginButtonsParent.SetActive(!isActive);
     }
@@ -76,4 +70,28 @@ public class LoginController : MonoBehaviour
     //    .RequestIdToken()
     //    .Build();
     //}
+    private void DeleteAccount()
+    {
+        if (BackEndDeleteAccount.TryDeleteAccount())
+        {
+            Debug.Log("Deleted local&server Account");
+            LogOut();
+        }
+    }
+
+    private async void GuestLogIn()
+    {
+        BlockCanvas.Instance.Activate();
+        await BackEndLogin.GuestLogin();
+        BlockCanvas.Instance.Deactivate();
+        SetStartButton(true);
+    }
+
+    private async void LogOut()
+    {
+        BlockCanvas.Instance.Activate();
+        await BackEndLogout.Logout();
+        BlockCanvas.Instance.Deactivate();
+        SetStartButton(false);
+    }
 }

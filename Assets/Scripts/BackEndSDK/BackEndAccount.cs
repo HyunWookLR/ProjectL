@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public class BackEndSignUp
 {
     //회원가입을 하는 경우 회원가입과 동시에 로그인이 진행됩니다.
-    public static Task<bool> OnClickSignUp(string federationToken, FederationType type, string etc = "")
+    public static Task<bool> SignUp(string federationToken, FederationType type, string etc = "")
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
         Backend.BMember.AuthorizeFederation(federationToken, type, etc, (returnObject) =>
@@ -36,7 +36,7 @@ public class BackEndLogin
             {
                 BackEndSDK.NotifyIfError(returnObject);
                 taskCompletionSource.SetResult(returnObject.IsSuccess());
-                Debug.Log("Guest Login Success");
+                Debug.Log("Guest Id: " + Backend.BMember.GetGuestID() + "\n Login Succeed");
             }
             catch (InvalidBackEndException e)
             {
@@ -46,12 +46,14 @@ public class BackEndLogin
         return taskCompletionSource.Task;
     }
 
+    //Guest, GoogleAccount 자동 로그인
     public static bool TryAutoLogin()
     {
         var returnObject = Backend.BMember.LoginWithTheBackendToken();
         return returnObject.IsSuccess();
     }
 
+    //기존 로그인했던 기기에서 로그인, 토큰 만료 시 자동 갱신
     public static Task<bool> TokenLogin(string etc = "")
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
@@ -62,7 +64,6 @@ public class BackEndLogin
             Debug.Log("Expired token -> Now refreshing token");
             Backend.BMember.RefreshTheBackendToken();
         }
-
         Backend.BMember.LoginWithTheBackendToken((returnObject) =>
         {
             try
@@ -100,5 +101,25 @@ public class BackEndLogout
             BlockCanvas.Instance.Deactivate();
         });
         return taskCompletionSource.Task;
+    }
+}
+
+public class BackEndDeleteAccount
+{
+    //로컬,서버 계정 삭제
+    public static bool TryDeleteAccount()
+    {
+        string id = Backend.BMember.GetGuestID();
+        if(id.NotEmpty())
+        {
+            Debug.Log("삭제할 아이디 :" + id);
+            Backend.BMember.DeleteGuestInfo();
+            Backend.BMember.SignOut();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
