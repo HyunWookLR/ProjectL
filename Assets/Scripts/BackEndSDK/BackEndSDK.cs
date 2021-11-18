@@ -9,11 +9,11 @@ public class BackEndSDK : MonoSingleton<BackEndSDK>
         var result = await Init();
         if(result == true)
         {
-            Debug.Log("BackEnd Init Success");
+            Debug.Log("<color=green>BackEnd Init Success</color>");
         }
         else
         {
-            Debug.LogError("BackEnd Init fail");
+            Debug.LogError("<color=red>BackEnd Init fail</color>");
         }
     }
 
