@@ -12,7 +12,7 @@ public class MainController : MonoBehaviour, ISceneLoadListener
     private void Awake()
     {
         SceneLoader.Instance.AddListener(this);
-        cardButton.SetClickListener(() => SceneLoader.Instance.Load(SceneType.Card, new SceneLoadUserData (user)));
+        cardButton.SetClickListener(() => SceneLoader.Instance.Load(SceneType.Card, new SceneLoadUserData (user, SceneType.Main)));
         //TODO 기능구현
         worldButton.SetClickListener(()=> Debug.Log("기능 미구현"));
         settingButton.SetClickListener(()=> Debug.Log("기능 미구현"));

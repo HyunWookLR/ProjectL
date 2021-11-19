@@ -252,8 +252,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2027208826}
-  - {fileID: 1413988593}
-  - {fileID: 559510245}
   m_Father: {fileID: 36368062}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -605,16 +603,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559510244}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.0052083335, y: 0.0052083335, z: 0.0052083335}
   m_Children:
   - {fileID: 807444277}
   - {fileID: 989880894}
   - {fileID: 235486640}
   - {fileID: 482660461}
-  m_Father: {fileID: 140650881}
-  m_RootOrder: 2
+  m_Father: {fileID: 2027208826}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1111,10 +1109,10 @@ RectTransform:
   m_GameObject: {fileID: 1413988592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.0052083335, y: 0.0052083335, z: 0.0052083335}
   m_Children: []
-  m_Father: {fileID: 140650881}
-  m_RootOrder: 1
+  m_Father: {fileID: 2027208826}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1460,20 +1458,27 @@ MonoBehaviour:
   cardButton: {fileID: 989880895}
   gachaButton: {fileID: 235486641}
   settingButton: {fileID: 482660462}
---- !u!4 &2027208826
-Transform:
+--- !u!224 &2027208826
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027208824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -192, z: -17280}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 192, y: 192, z: 192}
-  m_Children: []
+  m_Children:
+  - {fileID: 1413988593}
+  - {fileID: 559510245}
   m_Father: {fileID: 140650881}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2067132988
 GameObject:
   m_ObjectHideFlags: 0
