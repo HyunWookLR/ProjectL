@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public struct SceneLoadUserData : ILoadSceneData
 {
-    public SceneType PreviousScene { get => SceneType.Login; }
+    public SceneType PreviousScene { get; private set; }
     public User User { get; private set; }
-    public SceneLoadUserData(User user)
+    public SceneLoadUserData(User user, SceneType previousScene)
     {
         User = user;
+        PreviousScene = previousScene;
     }
 }
 public class LoginController : MonoBehaviour
@@ -35,7 +36,7 @@ public class LoginController : MonoBehaviour
     {
         startButton.SetClickListener(()=> 
         {
-            SceneLoader.Instance.Load(SceneType.Main, new SceneLoadUserData(User.Create()));
+            SceneLoader.Instance.Load(SceneType.Main, new SceneLoadUserData(User.Create(), SceneType.Login));
         });
         deleteAccountButton.SetClickListener(() => DeleteAccount());
         guestLoginButton.SetClickListener(() => GuestLogIn());
