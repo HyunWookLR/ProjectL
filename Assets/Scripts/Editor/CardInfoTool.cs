@@ -9,6 +9,9 @@ using System.Linq;
 public class CardInfoTool : EditorWindow
 {
     private const string dataPath = "/Resources/Json/CardInfo.json";
+    private const int defaultValue = 1;
+    private Vector2 scrollPosition = Vector2.zero;
+
     private List<CardInfo> cardList = new List<CardInfo>();
 
     [MenuItem("CustomTool/CardInfoTableTool")]
@@ -18,6 +21,12 @@ public class CardInfoTool : EditorWindow
     }
 
     private void OnGUI()
+    {
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
+        ShowGUI();
+        GUILayout.EndScrollView();
+    }
+    private void ShowGUI()
     {
         var style = new GUIStyle();
         GUILayout.Label("<size=15><color=red>카드의 정보 테이블을 생성합니다.</color></size>\n", style);
@@ -32,7 +41,14 @@ public class CardInfoTool : EditorWindow
 
         if (GUILayout.Button("카드 추가"))
         {
-            cardList.Add(new CardInfo());
+            var card = new CardInfo();
+            if (cardList.HasItem())
+            {
+                card.SetId(cardList.Last().Id + 1);
+            }
+            card.SetHp(defaultValue);
+            card.SetAtk(defaultValue);
+            cardList.Add(card);
         }
 
         if (GUILayout.Button("마지막 카드 삭제"))
@@ -52,8 +68,8 @@ public class CardInfoTool : EditorWindow
                 Save(jsonData);
             }
         }
-    }
 
+    }
     private void SetVariables()
     {
         if (cardList.HasItem())
