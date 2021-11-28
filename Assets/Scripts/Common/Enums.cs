@@ -20,6 +20,13 @@ public enum Rareness
     SR
 }
 
+public enum Type
+{
+    Red,
+    Blue,
+    Yellow
+}
+
 public enum Filter
 {
     ·¹¾îµµ,

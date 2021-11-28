@@ -34,13 +34,16 @@ public class LoginController : MonoBehaviour
 
     private void SetButtons()
     {
-        startButton.SetClickListener(()=> 
+        startButton.SetClickListener(async ()=> 
         {
-            SceneLoader.Instance.Load(SceneType.Main, new SceneLoadUserData(User.Create(), SceneType.Login));
+            BlockCanvas.Instance.Activate();
+            var user = await User.CreateAsync();
+            SceneLoader.Instance.Load(SceneType.Main, new SceneLoadUserData(user, SceneType.Login));
+            BlockCanvas.Instance.Deactivate();
         });
         deleteAccountButton.SetClickListener(() => DeleteAccount());
-        guestLoginButton.SetClickListener(() => GuestLogIn());
-        logoutButton.SetClickListener(() => LogOut());
+        guestLoginButton.SetClickListener(() => GuestLogInAsync());
+        logoutButton.SetClickListener(() => LogOutAsync());
 
         //TODO delete
         googleLoginButton.SetClickListener(() => Debug.Log("기능 미구현"));
@@ -76,11 +79,11 @@ public class LoginController : MonoBehaviour
         if (BackEndDeleteAccount.TryDeleteAccount())
         {
             Debug.Log("Deleted local&server Account");
-            LogOut();
+            LogOutAsync();
         }
     }
 
-    private async void GuestLogIn()
+    private async void GuestLogInAsync()
     {
         BlockCanvas.Instance.Activate();
         await BackEndLogin.GuestLogin();
@@ -88,7 +91,7 @@ public class LoginController : MonoBehaviour
         SetStartButton(true);
     }
 
-    private async void LogOut()
+    private async void LogOutAsync()
     {
         BlockCanvas.Instance.Activate();
         await BackEndLogout.Logout();
