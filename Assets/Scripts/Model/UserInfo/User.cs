@@ -9,8 +9,8 @@ public class User
     public string InDate { get; private set; }
     public string NickName { get; private set; }
 
-    private List<CardInfo> acquiredCards = new List<CardInfo>();
-    private List<CardInfo> allCards = new List<CardInfo>();
+    public List<CardInfo> AcquiredCards { get; private set; }
+    public List<CardInfo> AllCards { get; private set; }
     public static async Task<User> CreateAsync()
     {
         var cards =await BackEndJsonDeserializer<CardInfo>.DeserializeChart("allCards");
@@ -23,7 +23,7 @@ public class User
     {
         InDate = Backend.UserInDate;
         NickName = Backend.UserNickName;
-        allCards = cards;
+        AllCards = cards;
         InitAcquiredCard(startCards, acquiredCards);
 
         Debug.Log("Indate(UID):" + InDate);
@@ -31,15 +31,16 @@ public class User
 
     private void InitAcquiredCard(List<CardInfo> startCards, AcquiredCard acquiredKeys)
     {
+        AcquiredCards = new List<CardInfo>();
         //스타트팩 목록
         foreach (var card in startCards)
         {
-            if (acquiredCards.Where((containCard)=>containCard.Id == card.Id).NotHaveItem())
+            if (AcquiredCards.Where((containCard)=>containCard.Id == card.Id).NotHaveItem())
             {
-                var cardInfo = allCards.Find((item) => item.Id == card.Id);
+                var cardInfo = AllCards.Find((item) => item.Id == card.Id);
                 if(cardInfo != null)
                 {
-                    acquiredCards.Add(cardInfo);
+                    AcquiredCards.Add(cardInfo);
                 }
             }
         }
@@ -48,12 +49,12 @@ public class User
         var idList = acquiredKeys.GetAcquiredCardIdList();
         foreach (var id in idList)
         {
-            if (acquiredCards.Where((containCard) => containCard.Id == id).NotHaveItem())
+            if (AcquiredCards.Where((containCard) => containCard.Id == id).NotHaveItem())
             {
-                var cardInfo = allCards.Find((item) => item.Id == id);
+                var cardInfo = AllCards.Find((item) => item.Id == id);
                 if (cardInfo != null)
                 {
-                    acquiredCards.Add(cardInfo);
+                    AcquiredCards.Add(cardInfo);
                 }
             }
         }

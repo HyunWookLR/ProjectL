@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 58072371}
   - component: {fileID: 58072373}
   - component: {fileID: 58072372}
+  - component: {fileID: 58072374}
   m_Layer: 0
   m_Name: AchievedContainer
   m_TagString: Untagged
@@ -330,6 +331,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58072370}
   m_CullTransparentMesh: 1
+--- !u!114 &58072374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58072370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862ed2e415e8d72439deb273eeef59ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextRect: {fileID: 651819725}
+  cardListRect: {fileID: 1415519987}
 --- !u!1 &86660045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1400,7 @@ GameObject:
   - component: {fileID: 450027259}
   - component: {fileID: 450027261}
   - component: {fileID: 450027260}
+  - component: {fileID: 450027262}
   m_Layer: 0
   m_Name: UnAchievedContainer
   m_TagString: Untagged
@@ -1447,6 +1463,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450027258}
   m_CullTransparentMesh: 1
+--- !u!114 &450027262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450027258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862ed2e415e8d72439deb273eeef59ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextRect: {fileID: 2006849023}
+  cardListRect: {fileID: 1860370325}
 --- !u!224 &597199394 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 188364335310885043, guid: 0eb0f0095e7e2194691e5b810618a985, type: 3}
@@ -2673,6 +2703,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentRect: {fileID: 1891357826}
+  acheivedContainer: {fileID: 58072374}
+  unAcheivedContainer: {fileID: 450027262}
 --- !u!1 &839301184
 GameObject:
   m_ObjectHideFlags: 0
@@ -3346,6 +3378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navigation: {fileID: 188364334749342354}
+  cardScrollView: {fileID: 821500517}
 --- !u!1 &1347274355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,7 +3579,7 @@ GameObject:
   - component: {fileID: 1415519990}
   - component: {fileID: 1415519989}
   m_Layer: 0
-  m_Name: CardList
+  m_Name: AchievedCardList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4193,7 +4226,7 @@ GameObject:
   - component: {fileID: 1860370327}
   - component: {fileID: 1860370326}
   m_Layer: 0
-  m_Name: CardList
+  m_Name: UnAchievedCardList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

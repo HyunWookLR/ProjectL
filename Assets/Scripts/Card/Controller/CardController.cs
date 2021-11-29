@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class CardController : MonoBehaviour, ISceneLoadListener
 {
     [SerializeField] private NavigationBar navigation = null;
-
+    [SerializeField] private CardScrollView cardScrollView = null;
     private void Awake()
     {
         SceneLoader.Instance.AddListener(this);
@@ -17,14 +18,7 @@ public class CardController : MonoBehaviour, ISceneLoadListener
         if (sceneData is SceneLoadUserData userData)
         {
             navigation.Init(userData.User, SceneType.Main);
-            Init(userData.User);
+            cardScrollView.Init(userData.User);
         }
-    }
-
-    private void Init(User user)
-    {
-        //TODO User에 있는 수집한 카드목록들을 가져오기
-
-        //미보유목록이 필요하므로 클라에 전체 리스트 저장하기
     }
 }
