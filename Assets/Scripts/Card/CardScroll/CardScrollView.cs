@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
@@ -9,11 +7,23 @@ public class CardScrollView : MonoBehaviour
     [SerializeField] private CatalogCardContainer acheivedContainer = null;
     [SerializeField] private CatalogCardContainer unAcheivedContainer = null;
 
-    //TODO: Container1,2 카드 집어넣고 forcelayout 후, height가져와서 contentRect.RectTransform계산
     public void Init(User user)
     {
-        acheivedContainer.Init(user.AcquiredCards);
+        acheivedContainer.Init(user.AcquiredCards, true);
         var notAcquiredCards = user.AllCards.Where((card) => user.AcquiredCards.NotContains(card)).ToList();
-        unAcheivedContainer.Init(notAcquiredCards);
+        unAcheivedContainer.Init(notAcquiredCards, false);
+
+        var acheivedRect = acheivedContainer.GetComponent<RectTransform>();
+        var unacheivedRect = unAcheivedContainer.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(acheivedRect);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(unacheivedRect);
+
+        var contentLayoutGroup = contentRect.GetComponent<VerticalLayoutGroup>();
+        float layoutGroupPadding = 0f;
+        if(contentLayoutGroup != null)
+        {
+            layoutGroupPadding = contentLayoutGroup.padding.top + contentLayoutGroup.padding.bottom + contentLayoutGroup.spacing;
+        }
+        contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, acheivedRect.sizeDelta.y + unacheivedRect.sizeDelta.y + layoutGroupPadding);
     }
 }
