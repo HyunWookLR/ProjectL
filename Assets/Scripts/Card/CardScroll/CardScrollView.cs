@@ -26,4 +26,10 @@ public class CardScrollView : MonoBehaviour
         }
         contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, acheivedRect.sizeDelta.y + unacheivedRect.sizeDelta.y + layoutGroupPadding);
     }
+
+    public void SortReverse()
+    {
+        acheivedContainer.SortReverse();
+        unAcheivedContainer.SortReverse();
+    }
 }
