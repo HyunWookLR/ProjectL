@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct SortReverseEvent : IEventParam
+{ }
 public class SortButton : MonoBehaviour
 {
     [SerializeField] private Button sortButton = null;
@@ -17,6 +19,6 @@ public class SortButton : MonoBehaviour
     private void ChangeSort()
     {
         sortImage.sprite = sortImage.sprite == sprites[1] ? sprites[0] : sprites[1];
-        
+        this.Emit(new SortReverseEvent());
     }
 }

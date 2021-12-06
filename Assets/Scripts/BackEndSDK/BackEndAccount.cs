@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public class BackEndSignUp
 {
     //회원가입을 하는 경우 회원가입과 동시에 로그인이 진행됩니다.
-    public static Task<bool> SignUp(string federationToken, FederationType type, string etc = "")
+    public static async Task<bool> SignUpAsync(string federationToken, FederationType type, string etc = "")
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
         Backend.BMember.AuthorizeFederation(federationToken, type, etc, (returnObject) =>
@@ -20,13 +20,13 @@ public class BackEndSignUp
                 ErrorPopup.Instance.Show(e.Message, ()=> { });
             }
         });
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 }
 
 public class BackEndLogin
 {
-    public static Task<bool> GuestLogin(string etc = "")
+    public static async Task<bool> GuestLoginAsync(string etc = "")
     {
         //TODO 호출 전, 밖에서 로컬 데이터 삭제, 어플 재설치, 기기 변경, 로컬 데이터 손상 등의 상황이 발생하면 게스트 계정에 접근할 수 없다고 반드시 유저에게 충분한 설명을 고지해야 합니다.
         var taskCompletionSource = new TaskCompletionSource<bool>();
@@ -43,7 +43,7 @@ public class BackEndLogin
                 ErrorPopup.Instance.Show(e.Message, () => { });
             }
         });
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 
     //Guest, GoogleAccount 자동 로그인
@@ -54,7 +54,7 @@ public class BackEndLogin
     }
 
     //기존 로그인했던 기기에서 로그인, 토큰 만료 시 자동 갱신
-    public static Task<bool> TokenLogin(string etc = "")
+    public static async Task<bool> TokenLoginAsync(string etc = "")
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -84,13 +84,13 @@ public class BackEndLogin
                 }
             }
         });
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 }
 
 public class BackEndLogout
 {
-    public static Task<bool> Logout()
+    public static async Task<bool> LogoutAsync()
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
         BlockCanvas.Instance.Activate();
@@ -100,7 +100,7 @@ public class BackEndLogout
             Debug.Log("Log Out Success");
             BlockCanvas.Instance.Deactivate();
         });
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 }
 

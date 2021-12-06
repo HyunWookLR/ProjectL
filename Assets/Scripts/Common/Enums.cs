@@ -6,12 +6,6 @@ public enum SceneType
     Card,
     Gacha
 }
-public enum AttributeColor
-{
-    Red,
-    Blue,
-    Yellow
-}
 
 public enum Rareness
 {
@@ -20,8 +14,16 @@ public enum Rareness
     SR
 }
 
+public enum Type
+{
+    Red,
+    Blue,
+    Yellow
+}
+
 public enum Filter
 {
+    속성,
     레어도,
     체력,
     공격력

@@ -12,9 +12,9 @@ public class MainController : MonoBehaviour, ISceneLoadListener
     private void Awake()
     {
         SceneLoader.Instance.AddListener(this);
-        cardButton.SetClickListener(() => SceneLoader.Instance.Load(SceneType.Card, new SceneLoadUserData (user, SceneType.Main)));
+        cardButton.SetClickListener(() => StartCoroutine(SceneLoader.Instance.LoadAsync(SceneType.Card, new SceneLoadUserData (user, SceneType.Main))));
         //TODO 기능구현
-        worldButton.SetClickListener(()=> Debug.Log("기능 미구현"));
+        worldButton.SetClickListener(()=> StartCoroutine(SceneLoader.Instance.LoadAsync(SceneType.World, new SceneLoadUserData(user, SceneType.Main))));
         settingButton.SetClickListener(()=> Debug.Log("기능 미구현"));
         gachaButton.SetClickListener(()=> Debug.Log("기능 미구현"));
     }
