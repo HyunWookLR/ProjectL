@@ -13,9 +13,9 @@ public class User
     public List<CardInfo> AllCards { get; private set; }
     public static async Task<User> CreateAsync()
     {
-        var cards =await BackEndJsonDeserializer<CardInfo>.DeserializeChart("allCards");
-        var startCards = await BackEndJsonDeserializer<CardInfo>.DeserializeChart("startCards");
-        var acquiredCards = await BackEndJsonDeserializer<AcquiredCard>.DeserializeMyData("UserCard");
+        var cards =await BackEndJsonDeserializer<CardInfo>.DeserializeChartAsync("allCards");
+        var startCards = await BackEndJsonDeserializer<CardInfo>.DeserializeChartAsync("startCards");
+        var acquiredCards = await BackEndJsonDeserializer<AcquiredCard>.DeserializeMyDataAsync("UserCard");
         return new User(cards, startCards, acquiredCards);
     }
 

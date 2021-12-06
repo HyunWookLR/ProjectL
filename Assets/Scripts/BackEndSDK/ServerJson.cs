@@ -15,7 +15,7 @@ public static class BackEndJsonDeserializer<T> where T : class
         };
     }
 
-    public static Task<List<T>> DeserializeChart(string tableKey)
+    public static async Task<List<T>> DeserializeChartAsync(string tableKey)
     {
         var taskCompletionSource = new TaskCompletionSource<List<T>>();
         try
@@ -45,10 +45,10 @@ public static class BackEndJsonDeserializer<T> where T : class
             taskCompletionSource.SetResult(new List<T>());
             ErrorPopup.Instance.Show(e.Message, () => { });
         }
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 
-    public static Task<T> DeserializeMyData(string tableKey)
+    public static async Task<T> DeserializeMyDataAsync(string tableKey)
     {
         var taskCompletionSource = new TaskCompletionSource<T>();
 
@@ -75,7 +75,7 @@ public static class BackEndJsonDeserializer<T> where T : class
             }
         });
 
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 }
 

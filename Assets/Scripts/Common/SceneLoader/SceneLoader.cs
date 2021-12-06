@@ -18,11 +18,17 @@ public class SceneLoader : MonoSingleton<SceneLoader>
     private ILoadSceneData loadSceneData = null;
     private List<ISceneLoadListener> listeners = new List<ISceneLoadListener>();
 
-    public void Load(SceneType scene, ILoadSceneData sceneData)
+    public IEnumerator LoadAsync(SceneType scene, ILoadSceneData sceneData)
     {
         loadSceneData = sceneData;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene(scene.ToString());
+        AsyncOperation aysncOperation = SceneManager.LoadSceneAsync(scene.ToString());
+
+        LoadingCanvas.Instance.Activate();
+        while (!aysncOperation.isDone)
+        {
+            yield return null;
+        }
     }
 
     public void AddListener(ISceneLoadListener listener)
@@ -37,6 +43,7 @@ public class SceneLoader : MonoSingleton<SceneLoader>
     {
         StartCoroutine(SendLoadSceneData());
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        LoadingCanvas.Instance.Deactivate();
     }
 
     private IEnumerator SendLoadSceneData()

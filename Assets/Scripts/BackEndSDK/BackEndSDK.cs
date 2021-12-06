@@ -6,7 +6,7 @@ public class BackEndSDK : MonoSingleton<BackEndSDK>
 {
     private async void Awake()
     {
-        var result = await Init();
+        var result = await InitAsync();
         if(result == true)
         {
             Debug.Log("<color=green>BackEnd Init Success</color>");
@@ -33,13 +33,13 @@ public class BackEndSDK : MonoSingleton<BackEndSDK>
 
     public void ActiveOnScene() { Instance.enabled = true; }
 
-    private Task<bool> Init()
+    private async Task<bool> InitAsync()
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
         Backend.InitializeAsync(true, (callback) =>
         {
             taskCompletionSource.SetResult(callback.IsSuccess());
         });
-        return taskCompletionSource.Task;
+        return await taskCompletionSource.Task;
     }
 }

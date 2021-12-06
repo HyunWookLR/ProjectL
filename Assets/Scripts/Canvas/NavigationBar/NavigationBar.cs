@@ -18,7 +18,7 @@ public class NavigationBar : MonoBehaviour
                 }
                 else
                 {
-                    SceneLoader.Instance.Load(destScene, new SceneLoadUserData(user, sceneType));
+                    StartCoroutine(SceneLoader.Instance.LoadAsync(destScene, new SceneLoadUserData(user, sceneType)));
                 }
             }
             else
