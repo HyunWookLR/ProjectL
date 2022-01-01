@@ -11,7 +11,8 @@ public static class BackEndJsonDeserializer<T> where T : class
         backEndTable = new Dictionary<string, string>()
         {
             {"allCards", "33327" },
-            {"startCards", "33330" }
+            {"startCards", "33330" },
+            {"worlds", "36648" },
         };
     }
 
@@ -48,11 +49,9 @@ public static class BackEndJsonDeserializer<T> where T : class
         return await taskCompletionSource.Task;
     }
 
-    public static async Task<T> DeserializeMyDataAsync(string tableKey)
+    public static async Task<T> DeserializeUserDataAsync(string tableKey)
     {
         var taskCompletionSource = new TaskCompletionSource<T>();
-
-        var result = Backend.GameData.GetMyData(tableKey, new Where());
 
         Backend.GameData.GetMyData(tableKey, new Where(), (returnObject) =>
         {

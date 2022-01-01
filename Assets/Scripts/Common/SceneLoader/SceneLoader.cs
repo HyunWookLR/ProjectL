@@ -42,8 +42,6 @@ public class SceneLoader : MonoSingleton<SceneLoader>
     private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
         StartCoroutine(SendLoadSceneData());
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        LoadingCanvas.Instance.Deactivate();
     }
 
     private IEnumerator SendLoadSceneData()
@@ -54,5 +52,7 @@ public class SceneLoader : MonoSingleton<SceneLoader>
             listener.OnHandleSceneEvent(loadSceneData);
         }
         listeners.Clear();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        LoadingCanvas.Instance.Deactivate();
     }
 }

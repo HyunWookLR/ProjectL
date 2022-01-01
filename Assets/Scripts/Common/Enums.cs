@@ -18,11 +18,14 @@ public enum Type
 {
     Red,
     Blue,
-    Yellow
+    Yellow,
+    Green,
+    Purple,
 }
 
 public enum Filter
 {
+    //TODO 영어로 바꾸기
     속성,
     레어도,
     체력,

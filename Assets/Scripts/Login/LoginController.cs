@@ -43,10 +43,9 @@ public class LoginController : MonoBehaviour
         guestLoginButton.SetClickListener(() => GuestLogInAsync());
         logoutButton.SetClickListener(() => LogOutAsync());
 
-        //TODO delete
-        googleLoginButton.SetClickListener(() => Debug.Log("기능 미구현"));
 
         //TODO apk만들고 구글스토어에서 등록해야 테스트 가능
+        googleLoginButton.SetClickListener(() => Debug.Log("기능 미구현"));
         //googleLoginButton.SetClickListener(async ()=>
         //{
         //    await BackEndSignUp.OnClickSignUp();
