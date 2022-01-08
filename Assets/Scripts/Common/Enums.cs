@@ -4,7 +4,8 @@ public enum SceneType
     Main,
     World,
     Card,
-    Gacha
+    Gacha,
+    Battle
 }
 
 public enum Rareness

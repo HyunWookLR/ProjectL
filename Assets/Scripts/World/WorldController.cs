@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WorldController : MonoBehaviour, ISceneLoadListener, IEventListener
 {
@@ -10,7 +11,7 @@ public class WorldController : MonoBehaviour, ISceneLoadListener, IEventListener
     [SerializeField] private UIStage uiStage = null;
 
     private List<WorldCell> worlds = new List<WorldCell>();
-
+    private User user = null;
     private void Awake()
     {
         SceneLoader.Instance.AddListener(this);
@@ -54,6 +55,7 @@ public class WorldController : MonoBehaviour, ISceneLoadListener, IEventListener
     {
         if (sceneData is SceneLoadUserData userData)
         {
+            user = userData.User;
             navigation.Init(userData.User, SceneType.Main);
             InitWorldCellsAsync();
         }
@@ -65,6 +67,11 @@ public class WorldController : MonoBehaviour, ISceneLoadListener, IEventListener
         {
             uiWorld.SetActive(false);
             uiStage.Init(clickEvent.WorldNumber, clickEvent.WorldType);
+        }
+        else if (param is StageClickEvent stageClickEvent)
+        {
+            //TODO 배틀씬 진입하기(나중에 param사용해서 서버에 저장된 차트로 몬스터, 맵 이상상태효과 불러오기)
+            StartCoroutine(SceneLoader.Instance.LoadAsync(SceneType.Battle, new SceneLoadUserData(user, SceneType.World)));
         }
     }
 }

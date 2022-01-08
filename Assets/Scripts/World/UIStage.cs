@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIStage : MonoBehaviour, IEventListener
+public class UIStage : MonoBehaviour
 {
     [SerializeField] private Transform cellRoot = null;
     [SerializeField] private StageCell cellPrefab = null;
@@ -50,13 +50,5 @@ public class UIStage : MonoBehaviour, IEventListener
     private StageCell CreateCell()
     {
         return Instantiate(cellPrefab, cellRoot, false);
-    }
-
-    public void OnHandleEvent(IEventParam param)
-    {
-        if(param is StageClickEvent clickEvent)
-        {
-            //TODO 배틀씬 진입하기
-        }
     }
 }
